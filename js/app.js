@@ -44,9 +44,8 @@ const TOTAL_TASKS = FLAT.reduce((s, f) => s + f.lesson.tasks.length, 0);
 function lessonDone(id) { return !!(progress.lessons[id] && progress.lessons[id].done); }
 function globalIndex(lessonId) { return FLAT.findIndex((f) => f.lesson.id === lessonId); }
 function isUnlocked(lessonId) {
-  const idx = globalIndex(lessonId);
-  if (idx <= 0) return true;
-  return lessonDone(FLAT[idx - 1].lesson.id);
+  // Все уроки открыты — проходи в любом порядке.
+  return true;
 }
 function doneCount() { return FLAT.filter((f) => lessonDone(f.lesson.id)).length; }
 function moduleProgress(mod) {
@@ -313,7 +312,7 @@ function renderCourse() {
     <div class="page-head">
       <div class="crumb"><a href="#/">Главная</a> <span>›</span> <span>Курс</span></div>
       <h1>${COURSE.title}</h1>
-      <p class="lead">Проходи модули по порядку. Каждый следующий урок открывается после завершения предыдущего.</p>
+      <p class="lead">Все уроки открыты — проходи в своём темпе и в любом порядке. Прогресс и XP сохраняются.</p>
 
       <div class="progress-overview reveal">
         <div class="progress-ring">
